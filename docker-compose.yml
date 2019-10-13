@@ -1,0 +1,20 @@
+version: '2'
+services:
+  realsense:
+    build:
+      context: .
+      args:
+        - LOCAL_USER_ID=$LOCAL_USER_ID        
+        - BASE_IMAGE=nvidia/opengl:1.0-glvnd-runtime-ubuntu18.04
+    image: realsense-dev:latest
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /dev/bus/usb:/dev/bus/usb
+      - ${DATA_DIR}:/root/Documents
+      - ${HOME}:${HOME}
+    environment:
+      - DISPLAY=$DISPLAY
+    cap_add:
+      - ALL
+    privileged: true
